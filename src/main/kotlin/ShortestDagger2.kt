@@ -2,14 +2,13 @@ import dagger.Component
 import javax.inject.Inject
 
 fun main(args: Array<String>) {
-    MainClass()
+    println(MainClass().info.text)
 }
 
 class MainClass {
-    @Inject lateinit var info: Info
+    @Inject lateinit var info : Info
     init {
-        DaggerMagicBox.builder().build().poke(this)
-        println(info.text)
+        DaggerMagicBox.create().poke(this)
     }
 }
 
@@ -17,7 +16,6 @@ class Info @Inject constructor() {
     val text = "Hello Dagger 2"
 }
 
-@Component
-interface MagicBox {
-    fun poke(app: MainClass)
+@Component interface MagicBox {
+    fun poke(mainClass: MainClass)
 }
